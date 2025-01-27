@@ -12,7 +12,7 @@
 ---
 
 ## Dag 2 : Laden van Assets & Spelerconfiguratie  
-**Datum:** -01-2025 
+**Datum:** 24-01-2025 & 27-01-2025
 **Taken:**  
 - Laden en voorbereiden van alle benodigde grafische assets (ruimteschip, vijanden, achtergronden, enz.).  
 - Configureren van de speler (ruimteschip) in de code:  
