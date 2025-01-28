@@ -23,7 +23,7 @@
 ---
 
 ## Dag 3: Vijanden  & Wapens
-**Datum:** -01-2025  
+**Datum:** 28-01-2025  
 **Taken:**  
 - Toevoegen van vijandelijke sprites in het spel.  
 - Basislogica voor het bewegen of patrouilleren van vijanden.  
@@ -36,8 +36,8 @@
 
 ---
 
-## Dag 5: Botsingen  
-**Datum:** -01-2025  
+## Dag 4: Botsingen  
+**Datum:** 29-01-2025  
 **Taken:**  
 - Implementeren van collision detection tussen:  
   - Ruimteschip en vijanden.  
@@ -48,7 +48,7 @@
 
 ---
 
-## Dag 6: Vijand-Spawner  
+## Dag : Vijand-Spawner  
 **Datum:** -01-2025  
 **Taken:**  
 - Opzetten van een systeem dat vijanden automatisch genereert (spawner).  
@@ -58,7 +58,7 @@
 
 ---
 
-## Dag 7: Spawner bij Vernietiging  
+## Dag : Spawner bij Vernietiging  
 **Datum:** -01-2025  
 **Taken:**  
 - Zorgen dat nieuwe vijanden verschijnen wanneer eerdere vijanden zijn vernietigd of een ronde is voltooid.  
@@ -66,7 +66,7 @@
 
 ---
 
-## Dag 8: Gebruikersinterface (UI)  
+## Dag : Gebruikersinterface (UI)  
 **Datum:** -01-2025  
 **Taken:**  
 - Toevoegen van UI-elementen, zoals scoreweergave, health/levensindicator en eventuele power-ups.  
@@ -75,7 +75,7 @@
 
 ---
 
-## Dag 9: Audio  
+## Dag : Audio  
 **Datum:** -01-2025  
 **Taken:**  
 - Toevoegen van achtergrondmuziek om de spelbeleving te versterken.  
@@ -84,7 +84,7 @@
 
 ---
 
-## Dag 10: Eindafwerking en Overdracht  
+## Dag : Eindafwerking en Overdracht  
 **Datum:** -01-2025  
 **Taken:**  
 - Fijnslijpen van de gameplay en moeilijkheidsgraad (snelheid van vijanden, schade per aanval, enz.).  
