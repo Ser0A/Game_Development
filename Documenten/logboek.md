@@ -22,22 +22,17 @@
 
 ---
 
-## Dag 3: Vijanden  
+## Dag 3: Vijanden  & Wapens
 **Datum:** -01-2025  
 **Taken:**  
 - Toevoegen van vijandelijke sprites in het spel.  
 - Basislogica voor het bewegen of patrouilleren van vijanden.  
 - Toevoegen van eenvoudige animaties voor vijanden (bijvoorbeeld knipperen of heen-en-weer bewegen).  
-
----
-
-## Dag 4: Wapens  
-**Datum:** -01-2025  
-**Taken:**  
-- Toevoegen van wapens (bijv. lasers of kogels) voor het ruimteschip.  
+- Toevoegen van wapens voor het ruimteschip.  
 - Coderen van het schietsysteem (knop om te schieten, projectielen afvuren).  
 - Definiëren van schiethoeveelheid (fire rate) en bereik.  
 - Wapens voor vijanden staan nog op de planning.
+
 
 ---
 
