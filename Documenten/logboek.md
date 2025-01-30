@@ -49,12 +49,11 @@
 ---
 
 ## Dag : Vijand-Spawner  
-**Datum:** -01-2025  
+**Datum:** 30-01-2025  
 **Taken:**  
 - Opzetten van een systeem dat vijanden automatisch genereert (spawner).  
 - Bepalen hoe vaak en waar (x-, y-coördinaten) vijanden verschijnen.  
 - Eventueel variatie in soorten vijanden of moeilijkheidsgraad in de spawner.  
-- Gebruik van object pools overwogen voor efficiëntere vijandenspawning.
 
 ---
 
