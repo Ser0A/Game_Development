@@ -22,7 +22,7 @@ In deze backlog is gebruikgemaakt van de MoSCoW-methode om de minimale en gewens
    Als speler wil ik opnieuw kunnen starten nadat ik heb gewonnen of verloren.
 
 6. **Branding van Best Education B.V.**  
-   Als Best Education B.V. wil ik dat onze naam, logo en slogan in de game voorkomen.  
+   Als Best Education B.V. wil ik dat ons logo en slogan in de game voorkomen.  
    - **Naam**: Best Education  
    - **Logo**: Zie bijlage 2  
    - **Slogan**: “Wij lanceren je de toekomst in!”

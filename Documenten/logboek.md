@@ -48,35 +48,22 @@
 
 ---
 
-## Dag : Vijand-Spawner  
-**Datum:** 30-01-2025  
+## Dag 5: Vijand-Spawner  
+**Datum:** 30-01-2025  // 03-02-2024
 **Taken:**  
 - Opzetten van een systeem dat vijanden automatisch genereert (spawner).  
 - Bepalen hoe vaak en waar (x-, y-coördinaten) vijanden verschijnen.  
 - Eventueel variatie in soorten vijanden of moeilijkheidsgraad in de spawner.  
+- Zorgen dat nieuwe vijanden verschijnen wanneer eerdere vijanden zijn vernietigd of een ronde is voltooid.    
 
 ---
 
-## Dag : Spawner bij Vernietiging  
+## Dag : Gebruikersinterface (UI) & Audio  
 **Datum:** -01-2025  
 **Taken:**  
-- Zorgen dat nieuwe vijanden verschijnen wanneer eerdere vijanden zijn vernietigd of een ronde is voltooid.  
-- Eventueel toevoegen van beloningen of extra punten bij het uitschakelen van alle vijanden in een “golf”.  
-
----
-
-## Dag : Gebruikersinterface (UI)  
-**Datum:** -01-2025  
-**Taken:**  
-- Toevoegen van UI-elementen, zoals scoreweergave, health/levensindicator en eventuele power-ups.  
+- Toevoegen van UI-elementen, zoals scoreweergave, health/levensindicator.  
 - Verbeteren van het startscherm en pause-/game-over-scherm.  
 - Scoresysteem getest en geïntegreerd.  
-
----
-
-## Dag : Audio  
-**Datum:** -01-2025  
-**Taken:**  
 - Toevoegen van achtergrondmuziek om de spelbeleving te versterken.  
 - Implementeren van geluidseffecten voor schieten, explosies en menu-acties.  
 - Balanceren van audiovolumes (muziek vs. geluidseffecten).  
@@ -90,3 +77,24 @@
 - Controleren en oplossen van eventuele bugs.  
 - Afronden en documenteren van alle functionaliteiten.  
 - Voorbereiden en afronden van presentatiemateriaal en overdrachtsdocumenten.  
+
+## Testen
+
+### Eerste test
+
+- Datum: 03-02-2024
+- Tijd: 15:56
+- Tester: Alper Ayik
+
+    - Conclusies
+    - i. Speler: Schiet wat langzaam 
+    - ii. Snelheid: Vijanden bewegen iets te snel
+    - iii. Snelheid: Speler wat te langzaam
+
+- Aanpassingen:
+
+    - i.  Firerate aangepast
+
+    - ii.  Snelheid van vijanden aangepast en 
+    
+    - iii. Speler sneller gemaakt
