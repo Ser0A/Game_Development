@@ -1,40 +1,27 @@
-import * as CONFIG from '../../config.js';
+import { CUSTOM_EVENTS } from '../events/event-bus-component.js';
 
-export class VerticalMovementComponent {
-  #gameObject;
-  #inputComponent;
-  #velocity;
+export class EnemyDestroyedComponent {
+  #scene;
+  #group;
+  #eventBusComponent;
 
-  constructor(gameObject, inputComponent, velocity) {
-    this.#gameObject = gameObject;
-    this.#inputComponent = inputComponent;
-    this.#velocity = velocity;
+  constructor(scene, eventBusComponent) {
+    this.#scene = scene;
+    this.#eventBusComponent = eventBusComponent;
 
-    // Schakel demping in voor een vloeiende beweging
-    this.#gameObject.body.setDamping(true);
-    // Stel de drag en maximale verticale snelheid in via de config
-    this.#gameObject.body.setDrag(CONFIG.COMPONENT_MOVEMENT_VERTICAL_DRAG);
-    this.#gameObject.body.setMaxVelocity(CONFIG.COMPONENT_MOVEMENT_VERTICAL_MAX_VELOCITY);
-  }
+    // Maak een groep aan om de vernietigings-animaties te beheren
+    this.#group = this.#scene.add.group({
+      name: `${this.constructor.name}-${Phaser.Math.RND.uuid()}`,
+    });
 
-  reset() {
-    // Reset de verticale snelheid en angular acceleration
-    this.#gameObject.body.velocity.y = 0;
-    this.#gameObject.body.setAngularAcceleration(0);
-  }
-
-  update() {
-    // Als de "down" input actief is, verhoog de verticale snelheid
-    if (this.#inputComponent.downIsDown) {
-      this.#gameObject.body.velocity.y += this.#velocity;
-    }
-    // Als de "up" input actief is, verlaag de verticale snelheid
-    else if (this.#inputComponent.upIsDown) {
-      this.#gameObject.body.velocity.y -= this.#velocity;
-    }
-    // Geen input: reset de angular acceleration
-    else {
-      this.#gameObject.body.setAngularAcceleration(0);
-    }
+    // Luister naar het ENEMY_DESTROYED event en speel de vernietigings-animatie af
+    this.#eventBusComponent.on(CUSTOM_EVENTS.ENEMY_DESTROYED, (enemy) => {
+      const gameObject = this.#group.get(enemy.x, enemy.y, enemy.shipAssetKey, 0);
+      if (gameObject) {
+        gameObject.play({
+          key: enemy.shipDestroyedAnimationKey,
+        });
+      }
+    });
   }
 }
