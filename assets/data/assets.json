@@ -76,7 +76,13 @@
         "key": "ship",
         "url": "ship.png",
         "frameConfig": { "frameWidth": 48, "frameHeight": 48 }
+      },
+      {
+        "type": "image",
+        "key": "lifeIcon",
+        "url": "assets/images/logo_zonder_tekst.png"
       }
+      
     ]
   },
   {

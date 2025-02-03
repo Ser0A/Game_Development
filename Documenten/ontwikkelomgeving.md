@@ -8,7 +8,7 @@
   - **Processor**: Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz   2.59 GHz  
   - **RAM**: 16 GB  
   - **Opslag**: 512 GB SSD  
-  - **GPU**: NVIDIA GeForce RTX 3050 Laptop GPU  
+  - **GPU**: NVIDIA GeForce RTX 1660 Laptop GPU  
 
 ## Software
 

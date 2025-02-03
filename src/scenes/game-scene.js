@@ -18,18 +18,39 @@ export class GameScene extends Phaser.Scene {
   }
 
   preload() {
+    // Laad alle assets via een pack
     this.load.pack('asset_pack', 'assets/data/assets.json');
   }
 
   create() {
-    this.add.sprite(0, 0, 'bg1', 0).setOrigin(0, 1).setAlpha(0.7).setAngle(90).setScale(1, 1.25).play('bg1');
-    this.add.sprite(0, 0, 'bg2', 0).setOrigin(0, 1).setAlpha(0.7).setAngle(90).setScale(1, 1.25).play('bg2');
-    this.add.sprite(0, 0, 'bg3', 0).setOrigin(0, 1).setAlpha(0.7).setAngle(90).setScale(1, 1.25).play('bg3');
+    // Voeg een levensicoon toe
+    this.add.image(30, 30, 'lifeIcon').setScale(0.03).setDepth(9999);
 
+    // Voeg achtergrondsprites toe en speel hun animaties
+    this.add.sprite(0, 0, 'bg1', 0)
+      .setOrigin(0, 1)
+      .setAlpha(0.7)
+      .setAngle(90)
+      .setScale(1, 1.25)
+      .play('bg1');
+    this.add.sprite(0, 0, 'bg2', 0)
+      .setOrigin(0, 1)
+      .setAlpha(0.7)
+      .setAngle(90)
+      .setScale(1, 1.25)
+      .play('bg2');
+    this.add.sprite(0, 0, 'bg3', 0)
+      .setOrigin(0, 1)
+      .setAlpha(0.7)
+      .setAngle(90)
+      .setScale(1, 1.25)
+      .play('bg3');
+
+    // Initialiseer de event bus en maak de speler
     const eventBusComponent = new EventBusComponent();
     const player = new Player(this, eventBusComponent);
 
-    // spawn enemies
+    // Maak spawners voor scout- en fighter-vijanden
     const scoutSpawner = new EnemySpawnerComponent(
       this,
       ScoutEnemy,
@@ -50,64 +71,65 @@ export class GameScene extends Phaser.Scene {
     );
     new EnemyDestroyedComponent(this, eventBusComponent);
 
-    // collisions for player and enemy groups
-    this.physics.add.overlap(player, scoutSpawner.phaserGroup, (playerGameObject, enemyGameObject) => {
-      if (!playerGameObject.active || !enemyGameObject.active) {
-        return;
+    // Check overlap tussen speler en scout-vijanden
+    this.physics.add.overlap(
+      player,
+      scoutSpawner.phaserGroup,
+      (playerGO, enemyGO) => {
+        if (!playerGO.active || !enemyGO.active) return;
+        playerGO.colliderComponent.collideWithEnemyShip();
+        enemyGO.colliderComponent.collideWithEnemyShip();
       }
+    );
 
-      playerGameObject.colliderComponent.collideWithEnemyShip();
-      enemyGameObject.colliderComponent.collideWithEnemyShip();
-    });
-    this.physics.add.overlap(player, fighterSpawner.phaserGroup, (playerGameObject, enemyGameObject) => {
-      if (!playerGameObject.active || !enemyGameObject.active) {
-        return;
+    // Check overlap tussen speler en fighter-vijanden
+    this.physics.add.overlap(
+      player,
+      fighterSpawner.phaserGroup,
+      (playerGO, enemyGO) => {
+        if (!playerGO.active || !enemyGO.active) return;
+        playerGO.colliderComponent.collideWithEnemyShip();
+        enemyGO.colliderComponent.collideWithEnemyShip();
       }
+    );
 
-      playerGameObject.colliderComponent.collideWithEnemyShip();
-      enemyGameObject.colliderComponent.collideWithEnemyShip();
-    });
+    // Voeg overlap toe voor fighter-projectielen
     eventBusComponent.on(CUSTOM_EVENTS.ENEMY_INIT, (gameObject) => {
-      if (gameObject.constructor.name !== 'FighterEnemy') {
-        return;
-      }
-
-      this.physics.add.overlap(player, gameObject.weaponGameObjectGroup, (playerGameObject, projectileGameObject) => {
-        if (!playerGameObject.active || !projectileGameObject.active) {
-          return;
+      if (gameObject.constructor.name !== 'FighterEnemy') return;
+      this.physics.add.overlap(
+        player,
+        gameObject.weaponGameObjectGroup,
+        (playerGO, projectileGO) => {
+          if (!playerGO.active || !projectileGO.active) return;
+          gameObject.weaponComponent.destroyBullet(projectileGO);
+          playerGO.colliderComponent.collideWithEnemyProjectile();
         }
-
-        gameObject.weaponComponent.destroyBullet(projectileGameObject);
-        playerGameObject.colliderComponent.collideWithEnemyProjectile();
-      });
+      );
     });
 
-    // collisions for player weapons and enemy groups
+    // Check overlap tussen speler-projectielen en scout-vijanden
     this.physics.add.overlap(
       scoutSpawner.phaserGroup,
       player.weaponGameObjectGroup,
-      (enemyGameObject, projectileGameObject) => {
-        if (!enemyGameObject.active || !projectileGameObject.active) {
-          return;
-        }
-
-        player.weaponComponent.destroyBullet(projectileGameObject);
-        enemyGameObject.colliderComponent.collideWithEnemyProjectile();
+      (enemyGO, projectileGO) => {
+        if (!enemyGO.active || !projectileGO.active) return;
+        player.weaponComponent.destroyBullet(projectileGO);
+        enemyGO.colliderComponent.collideWithEnemyProjectile();
       }
     );
+
+    // Check overlap tussen speler-projectielen en fighter-vijanden
     this.physics.add.overlap(
       fighterSpawner.phaserGroup,
       player.weaponGameObjectGroup,
-      (enemyGameObject, projectileGameObject) => {
-        if (!enemyGameObject.active || !projectileGameObject.active) {
-          return;
-        }
-
-        player.weaponComponent.destroyBullet(projectileGameObject);
-        enemyGameObject.colliderComponent.collideWithEnemyProjectile();
+      (enemyGO, projectileGO) => {
+        if (!enemyGO.active || !projectileGO.active) return;
+        player.weaponComponent.destroyBullet(projectileGO);
+        enemyGO.colliderComponent.collideWithEnemyProjectile();
       }
     );
 
+    // Start UI-elementen en audio
     new Score(this, eventBusComponent);
     new Lives(this, eventBusComponent);
     new AudioManager(this, eventBusComponent);

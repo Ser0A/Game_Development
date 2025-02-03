@@ -7,6 +7,7 @@ import { WeaponComponent } from '../components/weapon/weapon-component.js';
 import * as CONFIG from '../config.js';
 
 export class Player extends Phaser.GameObjects.Container {
+  // Private properties
   #keyboardInputComponent;
   #weaponComponent;
   #horizontalMovementComponent;
@@ -18,9 +19,11 @@ export class Player extends Phaser.GameObjects.Container {
   #shipEngineThrusterSprite;
 
   constructor(scene, eventBusComponent) {
+    // Plaats de speler in het midden van de onderkant van het scherm
     super(scene, scene.scale.width / 2, scene.scale.height - 32, []);
     this.#eventBusComponent = eventBusComponent;
 
+    // Voeg de container toe aan de scene en maak een physics body
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this);
     this.body.setSize(24, 24);
@@ -28,18 +31,21 @@ export class Player extends Phaser.GameObjects.Container {
     this.body.setCollideWorldBounds(true);
     this.setDepth(2);
 
+    // Maak en voeg de sprites voor de speler toe
     this.#shipSprite = scene.add.sprite(0, 0, 'ship');
     this.#shipEngineSprite = scene.add.sprite(0, 0, 'ship_engine');
     this.#shipEngineThrusterSprite = scene.add.sprite(0, 0, 'ship_engine_thruster');
     this.#shipEngineThrusterSprite.play('ship_engine_thruster');
     this.add([this.#shipEngineThrusterSprite, this.#shipEngineSprite, this.#shipSprite]);
 
+    // Initialiseer input en beweging
     this.#keyboardInputComponent = new KeyboardInputComponent(this.scene);
     this.#horizontalMovementComponent = new HorizontalMovementComponent(
       this,
       this.#keyboardInputComponent,
       CONFIG.PLAYER_MOVEMENT_HORIZONTAL_VELOCITY
     );
+    // Initialiseer wapensysteem
     this.#weaponComponent = new WeaponComponent(
       this,
       this.#keyboardInputComponent,
@@ -53,13 +59,18 @@ export class Player extends Phaser.GameObjects.Container {
       },
       this.#eventBusComponent
     );
+    // Initialiseer gezondheid en collider
     this.#healthComponent = new HealthComponent(CONFIG.PLAYER_HEALTH);
     this.#colliderComponent = new ColliderComponent(this.#healthComponent, this.#eventBusComponent);
 
+    // Verberg speler totdat deze gespawned wordt
     this.#hide();
+    // Luister naar spawn-event voor de speler
     this.#eventBusComponent.on(CUSTOM_EVENTS.PLAYER_SPAWN, this.#spawn, this);
 
+    // Update de speler elke frame
     this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.update, this);
+    // Verwijder de update listener bij destroy
     this.once(
       Phaser.GameObjects.Events.DESTROY,
       () => {
@@ -68,43 +79,48 @@ export class Player extends Phaser.GameObjects.Container {
       this
     );
   }
+
+  // Exposeer collider-component voor externe toegang
   get colliderComponent() {
     return this.#colliderComponent;
   }
 
+  // Exposeer health-component voor externe toegang
   get healthComponent() {
     return this.#healthComponent;
   }
 
+  // Geef toegang tot de groep van de spelerprojectielen
   get weaponGameObjectGroup() {
     return this.#weaponComponent.bulletGroup;
   }
 
+  // Exposeer weapon-component voor externe toegang
   get weaponComponent() {
     return this.#weaponComponent;
   }
 
   update(ts, dt) {
-    if (!this.active) {
-      return;
-    }
+    if (!this.active) return;
 
+    // Als de speler dood is, speel explosie en verberg de speler
     if (this.#healthComponent.isDead) {
       this.#hide();
       this.setVisible(true);
-      this.#shipSprite.play({
-        key: 'explosion',
-      });
+      this.#shipSprite.play({ key: 'explosion' });
       this.#eventBusComponent.emit(CUSTOM_EVENTS.PLAYER_DESTROYED);
       return;
     }
 
-    this.#shipSprite.setFrame((CONFIG.PLAYER_HEALTH - this.#healthComponent.life).toString(10));
+    // Update de sprite-frame op basis van de gezondheid
+    this.#shipSprite.setFrame((CONFIG.PLAYER_HEALTH - this.#healthComponent.life).toString());
+    // Update input, beweging en wapen
     this.#keyboardInputComponent.update();
     this.#horizontalMovementComponent.update();
     this.#weaponComponent.update(dt);
   }
 
+  // Verberg de speler en schakel input uit
   #hide() {
     this.setActive(false);
     this.setVisible(false);
@@ -113,6 +129,7 @@ export class Player extends Phaser.GameObjects.Container {
     this.#keyboardInputComponent.lockInput = true;
   }
 
+  // Spawn de speler, reset gezondheid en positie
   #spawn() {
     this.setActive(true);
     this.setVisible(true);

@@ -18,19 +18,23 @@ export class FighterEnemy extends Phaser.GameObjects.Container {
   #shipEngineSprite;
 
   constructor(scene, x, y) {
+    // Plaats de enemy op (x, y)
     super(scene, x, y, []);
-
     this.#isInitialized = false;
+
+    // Voeg de container toe aan de scene en maak een physics body
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this);
     this.body.setSize(24, 24);
     this.body.setOffset(-12, -12);
 
+    // Maak de fighter-sprites
     this.#shipSprite = scene.add.sprite(0, 0, 'fighter', 0);
     this.#shipEngineSprite = scene.add.sprite(0, 0, 'fighter_engine').setFlipY(true);
     this.#shipEngineSprite.play('fighter_engine');
     this.add([this.#shipEngineSprite, this.#shipSprite]);
 
+    // Update de enemy elke frame
     this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.update, this);
     this.once(
       Phaser.GameObjects.Events.DESTROY,
@@ -41,6 +45,7 @@ export class FighterEnemy extends Phaser.GameObjects.Container {
     );
   }
 
+  // Exposeer componenten zodat andere objecten er toegang toe hebben
   get colliderComponent() {
     return this.#colliderComponent;
   }
@@ -65,6 +70,7 @@ export class FighterEnemy extends Phaser.GameObjects.Container {
     return 'fighter_destroy';
   }
 
+  // Initialiseer de enemy met de event bus en andere componenten
   init(eventBusComponent) {
     this.#eventBusComponent = eventBusComponent;
     this.#inputComponent = new BotFighterInputComponent();
@@ -88,10 +94,12 @@ export class FighterEnemy extends Phaser.GameObjects.Container {
     );
     this.#healthComponent = new HealthComponent(CONFIG.ENEMY_FIGHTER_HEALTH);
     this.#colliderComponent = new ColliderComponent(this.#healthComponent, this.#eventBusComponent);
+    // Laat weten dat de enemy geïnitialiseerd is
     this.#eventBusComponent.emit(CUSTOM_EVENTS.ENEMY_INIT, this);
     this.#isInitialized = true;
   }
 
+  // Reset de enemy zodat deze opnieuw gebruikt kan worden
   reset() {
     this.setActive(true);
     this.setVisible(true);
@@ -100,20 +108,18 @@ export class FighterEnemy extends Phaser.GameObjects.Container {
   }
 
   update(ts, dt) {
-    if (!this.#isInitialized) {
+    if (!this.#isInitialized || !this.active) {
       return;
     }
 
-    if (!this.active) {
-      return;
-    }
-
+    // Als de enemy dood is, verberg hem en stuur een event
     if (this.#healthComponent.isDead) {
       this.setActive(false);
       this.setVisible(false);
       this.#eventBusComponent.emit(CUSTOM_EVENTS.ENEMY_DESTROYED, this);
     }
 
+    // Update input, beweging en wapen
     this.#inputComponent.update();
     this.#verticalMovementComponent.update();
     this.#weaponComponent.update(dt);
