@@ -59,7 +59,7 @@
 ---
 
 ## Dag : Gebruikersinterface (UI) & Audio  
-**Datum:** -01-2025  
+**Datum:** 03-02-2025  
 **Taken:**  
 - Toevoegen van UI-elementen, zoals scoreweergave, health/levensindicator.  
 - Verbeteren van het startscherm en pause-/game-over-scherm.  
@@ -71,9 +71,8 @@
 ---
 
 ## Dag : Eindafwerking en Overdracht  
-**Datum:** -01-2025  
-**Taken:**  
-- Fijnslijpen van de gameplay en moeilijkheidsgraad (snelheid van vijanden, schade per aanval, enz.).  
+**Datum:** 03-02-2025  // 04-02-2024
+**Taken:**   
 - Controleren en oplossen van eventuele bugs.  
 - Afronden en documenteren van alle functionaliteiten.  
 - Voorbereiden en afronden van presentatiemateriaal en overdrachtsdocumenten.  
