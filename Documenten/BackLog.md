@@ -10,13 +10,13 @@ In deze backlog is gebruikgemaakt van de MoSCoW-methode om de minimale en gewens
    Als speler wil ik een game kunnen starten, zodat ik kan bepalen wanneer het spel begint.
 
 2. **Besturing**  
-   Als speler wil ik de game (of het ruimteschipkarakter) kunnen besturen, zodat ik actief kan deelnemen aan het spel.
+   Als speler wil ik de game kunnen besturen, zodat ik actief kan deelnemen aan het spel.
 
 3. **Winconditie**  
    Als speler wil ik kunnen winnen, bijvoorbeeld door alle vijanden te verslaan of een bepaalde score te behalen.
 
 4. **Verliesconditie**  
-   Als speler wil ik kunnen verliezen, bijvoorbeeld wanneer ik alle levens kwijt ben of wanneer vijanden te ver doordringen.
+   Als speler wil ik kunnen verliezen, bijvoorbeeld wanneer ik alle levens kwijt ben.
 
 5. **Opnieuw Starten**  
    Als speler wil ik opnieuw kunnen starten nadat ik heb gewonnen of verloren.
