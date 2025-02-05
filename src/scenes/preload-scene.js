@@ -10,6 +10,8 @@ export class PreloadScene extends Phaser.Scene {
     // Laad de asset pack met de asset-data
     this.load.pack('asset_pack', 'assets/data/assets.json');
 
+    this.load.pack('asset_pack', 'assets/data/assets.json');
+
     // Laad een extra afbeelding (life icon)
     this.load.image('lifeIcon', 'http://localhost:5500/assets/images/logo_zonder_tekst.png');
   }
