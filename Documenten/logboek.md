@@ -58,7 +58,7 @@
 
 ---
 
-## Dag : Gebruikersinterface (UI) & Audio  
+## Dag 6 : Gebruikersinterface (UI) & Audio  
 **Datum:** 03-02-2025  
 **Taken:**  
 - Toevoegen van UI-elementen, zoals scoreweergave, health/levensindicator.  
@@ -70,7 +70,7 @@
 
 ---
 
-## Dag : Eindafwerking en Overdracht  
+## Dag 7 : Eindafwerking en Overdracht  
 **Datum:** 03-02-2025  // 04-02-2024
 **Taken:**   
 - Controleren en oplossen van eventuele bugs.  
