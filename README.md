@@ -1,4 +1,4 @@
-# Phaser 3 - Space Shooter Game
+# Phaser 3 - Space Invader
 
 ## Installatie
 
