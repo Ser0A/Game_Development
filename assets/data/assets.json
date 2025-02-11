@@ -79,16 +79,14 @@
       },
       {
         "type": "image",
-        "key": "lifeIcon",
-        "url": "assets/images/logo_zonder_tekst.png"
+        "key": "healthup",
+        "url": "healthup.png"
       },
       {
         "type": "image",
-        "key": "healthup",
-        "url": "healthup.png"
-      }
-      
-      
+        "key": "boss",
+        "url": "boss.png"
+      }      
     ]
   },
   {

@@ -24,26 +24,25 @@ export class Lives extends Phaser.GameObjects.Container {
       this.#icons.push(ship);
     }
 
-    // ✅ Event voor speler verlies
+    //  Event voor speler verlies
     this.#eventBusComponent.on(CUSTOM_EVENTS.PLAYER_DESTROYED, () => {
       this.loseLife();
     });
 
-    // ✅ Speler begint direct
+    //  Speler begint direct
     this.#eventBusComponent.emit(CUSTOM_EVENTS.PLAYER_SPAWN);
   }
 
-  // ✅ Geeft het aantal huidige levens terug
+  //  Geeft het aantal huidige levens terug
   getLives() {
     return this.#lives;
   }
 
-  // ✅ Vermindert een leven en verwijdert het laatste icoon
+  //  Vermindert een leven en verwijdert het laatste icoon
   loseLife() {
     if (this.#lives > 0) {
       this.#lives -= 1;
-      console.log("⚠️ Leven verloren! Huidige levens:", this.#lives);
-
+      
       if (this.#icons.length > 0) {
         const lastIcon = this.#icons.pop();
         lastIcon.destroy();
@@ -66,11 +65,11 @@ export class Lives extends Phaser.GameObjects.Container {
     }
   }
 
-  // ✅ Voegt een leven toe en spawnt een nieuw icoon
+  //  Voegt een leven toe en spawnt een nieuw icoon
   gainLife() {
     if (this.#lives < CONFIG.PLAYER_LIVES) {
       this.#lives += 1;
-      console.log("✅ HealthUp opgepakt! Huidige levens:", this.#lives);
+      
 
       const ship = this.scene.add
         .image(this.#icons.length * 20, 0, 'ship')

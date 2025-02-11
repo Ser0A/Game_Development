@@ -17,9 +17,9 @@ export class GameScene extends Phaser.Scene {
   constructor() {
     super({ key: 'GameScene' });
 
-    this.playerScore = 0; // ✅ Houdt de huidige score bij
-    this.lastHealthUpScore = 0; // ✅ Houdt de score bij van de laatste HealthUp spawn
-    this.healthUpAvailable = false; // ✅ Zorgt ervoor dat een HealthUp alleen spawnt na een hit
+    this.playerScore = 0; //  Houdt de huidige score bij
+    this.lastHealthUpScore = 0; //  Houdt de score bij van de laatste HealthUp spawn
+    this.healthUpAvailable = false; //  Zorgt ervoor dat een HealthUp alleen spawnt na een hit
   }
 
   preload() {
@@ -54,7 +54,7 @@ export class GameScene extends Phaser.Scene {
 
     new EnemyDestroyedComponent(this, eventBusComponent);
 
-    // ✅ Collision checks
+    //  Collision checks
     this.physics.add.overlap(this.player, scoutSpawner.phaserGroup, this.handlePlayerCollision, null, this);
     this.physics.add.overlap(this.player, fighterSpawner.phaserGroup, this.handlePlayerCollision, null, this);
 
@@ -74,7 +74,7 @@ export class GameScene extends Phaser.Scene {
 
     new AudioManager(this, eventBusComponent);
 
-    // ✅ Start HealthUp spawner
+    //  Start HealthUp spawner
     this.time.addEvent({
       delay: 5000, // Check elke 5 seconden
       loop: true,
@@ -85,12 +85,12 @@ export class GameScene extends Phaser.Scene {
   }
 
   spawnHealthUp() {
-    console.log("🔹 Check voor HealthUp: levens =", this.livesUI.getLives(), "score =", this.playerScore);
-    console.log("🛠 Laatste HealthUp bij score:", this.lastHealthUpScore);
-    console.log("🛠 HealthUp beschikbaar?", this.healthUpAvailable);
+    console.log(" Check voor HealthUp: levens =", this.livesUI.getLives(), "score =", this.playerScore);
+    console.log(" Laatste HealthUp bij score:", this.lastHealthUpScore);
+    console.log(" HealthUp beschikbaar?", this.healthUpAvailable);
 
     let scoreDiff = this.playerScore - this.lastHealthUpScore;
-    console.log("🛠 Score verschil sinds laatste HealthUp:", scoreDiff);
+    console.log(" Score verschil sinds laatste HealthUp:", scoreDiff);
 
     if (this.livesUI.getLives() < 3 &&
         scoreDiff >= 1000 &&
@@ -101,26 +101,26 @@ export class GameScene extends Phaser.Scene {
         this.add.existing(healthUp);
         this.physics.add.existing(healthUp);
 
-        console.log("✅ HealthUp gespawned op X:", x);
+        console.log(" HealthUp gespawned op X:", x);
 
         this.physics.add.overlap(this.player, healthUp, this.collectHealthUp, null, this);
 
-        this.lastHealthUpScore = this.playerScore; // ✅ Reset de teller na spawn
-        this.healthUpAvailable = false; // ✅ Moet eerst weer geraakt worden
+        this.lastHealthUpScore = this.playerScore; //  Reset de teller na spawn
+        this.healthUpAvailable = false; //  Moet eerst weer geraakt worden
     } else {
-        console.log("❌ HealthUp niet gespawned. Voorwaarden niet gehaald.");
+        console.log(" HealthUp niet gespawned. Voorwaarden niet gehaald.");
     }
 }
 
 
-  // ✅ HealthUp oppakken
+  //  HealthUp oppakken
   collectHealthUp(player, healthUp) {
-    console.log("✅ HealthUp opgepakt!");
+    console.log(" HealthUp opgepakt!");
     healthUp.destroy();
     this.livesUI.gainLife();
   }
 
-  // ✅ Score bijwerken
+  //  Score bijwerken
   updateScore(points) {
     this.playerScore += points;
     console.log("🔹 Score geüpdatet:", this.playerScore);
@@ -128,21 +128,21 @@ export class GameScene extends Phaser.Scene {
     if (this.scoreUI && typeof this.scoreUI.updateScore === 'function') {
         this.scoreUI.updateScore(this.playerScore);
     } else {
-        console.error('⚠️ scoreUI is niet correct geïnitialiseerd of updateScore ontbreekt.');
+        console.error(' scoreUI is niet correct geïnitialiseerd of updateScore ontbreekt.');
     }
 }
 
 
-  // ✅ Enemy hit handling
+  //  Enemy hit handling
   handleEnemyHit(enemy, projectile) {
     if (!enemy.active || !projectile.active) return;
     this.player.weaponComponent.destroyBullet(projectile);
 
     let points = enemy.constructor.name === 'FighterEnemy' ? 200 : 100;
-    this.updateScore(points); // ✅ Zorg ervoor dat score toeneemt
+    this.updateScore(points); // Zorg ervoor dat score toeneemt
 
     if (enemy.colliderComponent.collideWithEnemyProjectile()) {
-      console.log("💥 Vijand vernietigd! Score +", points);
+      console.log(" Vijand vernietigd! Score +", points);
     }
 }
 
@@ -153,8 +153,8 @@ export class GameScene extends Phaser.Scene {
     player.colliderComponent.collideWithEnemyShip();
     enemy.colliderComponent.collideWithEnemyShip();
 
-    this.healthUpAvailable = true; // ✅ Activeer HealthUp na een hit
-    console.log("⚠️ Speler geraakt! HealthUp is nu beschikbaar.");
+    this.healthUpAvailable = true; //  Activeer HealthUp na een hit
+    console.log(" Speler geraakt! HealthUp is nu beschikbaar.");
   }
 
   handleProjectileCollision(player, projectile) {
@@ -163,7 +163,7 @@ export class GameScene extends Phaser.Scene {
     projectile.destroy();
     player.colliderComponent.collideWithEnemyProjectile();
 
-    this.healthUpAvailable = true; // ✅ Activeer HealthUp na een hit
-    console.log("⚠️ Speler geraakt door projectiel! HealthUp is nu beschikbaar.");
+    this.healthUpAvailable = true; //  Activeer HealthUp na een hit
+    console.log(" Speler geraakt door projectiel! HealthUp is nu beschikbaar.");
   }
 }
